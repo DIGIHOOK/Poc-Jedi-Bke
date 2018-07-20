@@ -1,0 +1,18 @@
+version: '2'
+services:
+    pocjedibke-app:
+        image: pocjedibke
+        environment:
+            # - _JAVA_OPTIONS=-Xmx512m -Xms256m
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://pocjedibke-mysql:3306/pocjedibke?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=pocjedibke-elasticsearch:9300
+    pocjedibke-mysql:
+        extends:
+            file: mysql.yml
+            service: pocjedibke-mysql
+    pocjedibke-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: pocjedibke-elasticsearch
